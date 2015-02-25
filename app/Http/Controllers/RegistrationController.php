@@ -1,11 +1,9 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 use App\Http\Requests\CreateRegistrationRequest;
-use App\User;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 
 class RegistrationController extends Controller {
@@ -26,7 +24,8 @@ class RegistrationController extends Controller {
      */
     public function store(CreateRegistrationRequest $request)
 	{
-        User::create($request);
+//        dd($request->only('username', 'email', 'password', 'password_confirmation'));
+        User::create($request->only('username', 'email', 'password', 'password_confirmation'));
 
         return Redirect::home();
 	}

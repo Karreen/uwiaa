@@ -22,9 +22,9 @@ class CreateRegistrationRequest extends Request {
 	public function rules()
 	{
 		return [
-            'reg_no'    => 'required',
+            'username'  => 'required|min:3|unique:users',
             'email'     => 'required|email',
-            'password'  => 'required|confirmed'
+            'password'  => 'required|min:8|confirmed'
 		];
 	}
 

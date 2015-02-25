@@ -1,14 +1,15 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 use App\Http\Requests\CreateLoginRequest;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
 
 class SessionsController extends Controller {
 
-	/**
+    /**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
@@ -24,10 +25,11 @@ class SessionsController extends Controller {
      */
     public function store(CreateLoginRequest $request)
 	{
-        if (Auth::attempt($request))
+        if (Auth::attempt($request->only(['email', 'password'])))
         {
-            return Redirect::intended('/');
+            return Redirect::home();
         }
+        return redirect('about');
 	}
 
 	/**

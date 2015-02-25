@@ -34,9 +34,10 @@
     </noscript>
     <!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
     <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+    @yield('styles')
 </head>
 <body class="@yield('body-class')">
-
+    @include('layouts.partials._navbar')
     @yield('header')
     @yield('content')
     @yield('footer')
@@ -45,5 +46,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    @yield('scripts')
 </body>
 </html>

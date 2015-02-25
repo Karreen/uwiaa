@@ -19,16 +19,22 @@ Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('about', ['as' => 'about', 'uses' => 'HomeController@about']);
 Route::get('contact', ['as' => 'contact', 'uses' => 'HomeController@contact']);
 
-# registration
 
 //Route::resource('session', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
+
+Route::group(['prefix' => 'admin'], function()
+{
+    Route::get('login', ['uses' => 'AdminController@create']); // copy login form from session
+    Route::post('login', ['as' => 'admin.store', 'uses' => 'AdminController@store']);
+});
+
 
 # restrict from authenticated users
 Route::group(['middleware' => 'guest'], function()
 {
     # login
     Route::get('login', ['uses' => 'SessionsController@create']);
-    Route::post('login', ['as' => 'sessions.store', 'uses' => 'SessionsController@store']);
+
 
     # registration
     Route::get('register', 'RegistrationController@create');
@@ -44,12 +50,9 @@ Route::group(['middleware' => 'auth'], function()
         'uses' => 'SessionsController@destroy',
         'middleware' => 'auth'
     ]);
-
-    # registration
-    Route::get('register', 'RegistrationController@create');
 });
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+//
+//Route::controllers([
+//	'auth' => 'Auth\AuthController',
+//	'password' => 'Auth\PasswordController',
+//]);

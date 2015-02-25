@@ -40,8 +40,9 @@ class Authenticate {
 			}
 			else
 			{
+//                return redirect('login');
+//                return new RedirectResponse(url('/home'));
                 return redirect()->guest('login');
-//				return redirect()->guest('auth/login');
 			}
 		}
 
