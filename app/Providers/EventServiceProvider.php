@@ -1,5 +1,7 @@
 <?php namespace App\Providers;
 
+use App\Events\UserWasSignedIn;
+use App\Handlers\Events\UpdateUserLastLogin;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -14,6 +16,10 @@ class EventServiceProvider extends ServiceProvider {
 		'event.name' => [
 			'EventListener',
 		],
+
+        UserWasSignedIn::class => [
+            UpdateUserLastLogin::class,
+        ],
 	];
 
 	/**

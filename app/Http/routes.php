@@ -19,7 +19,7 @@ Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('about', ['as' => 'about', 'uses' => 'HomeController@about']);
 Route::get('contact', ['as' => 'contact', 'uses' => 'HomeController@contact']);
 
-
+Route::post('login', ['as' => 'sessions.store', 'uses' => 'SessionsController@store']);
 //Route::resource('session', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
 Route::group(['prefix' => 'admin'], function()

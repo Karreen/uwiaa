@@ -1,9 +1,11 @@
 <?php namespace App\Http\Controllers;
 
+use App\Events\UserWasSignedIn;
 use App\Http\Requests;
 
 use App\Http\Requests\CreateLoginRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -25,8 +27,10 @@ class SessionsController extends Controller {
      */
     public function store(CreateLoginRequest $request)
 	{
+//        dd($request->only(['email', 'password']));
         if (Auth::attempt($request->only(['email', 'password'])))
         {
+            Event::fire(new UserWasSignedIn(Auth::user()->id));
             return Redirect::home();
         }
         return redirect('about');
