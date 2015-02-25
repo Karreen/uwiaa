@@ -19,6 +19,6 @@ class Tag extends Model{
 
     public function posts()
     {
-        return $this->belongsToMany('Post');
+        return $this->belongsToMany('App\Models\Post');
     }
 }

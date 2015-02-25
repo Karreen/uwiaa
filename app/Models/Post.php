@@ -11,16 +11,16 @@ class Post extends Model {
 
     public function tags()
     {
-        return $this->belongsToMany('Tag');
+        return $this->belongsToMany('App\Models\Tag');
     }
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function comments()
     {
-        return $this->hasMany('Comment');
+        return $this->hasMany('App\Models\Comment');
     }
 
 }

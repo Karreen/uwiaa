@@ -25,7 +25,10 @@ class RegistrationController extends Controller {
     public function store(CreateRegistrationRequest $request)
 	{
 //        dd($request->only('username', 'email', 'password', 'password_confirmation'));
-        User::create($request->only('username', 'email', 'password', 'password_confirmation'));
+        $user = User::create($request->only('username', 'email', 'password', 'password_confirmation'));
+
+        $user->assignRole('alumni');
+        $user->save();
 
         return Redirect::home();
 	}

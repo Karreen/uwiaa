@@ -19,8 +19,16 @@ Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('about', ['as' => 'about', 'uses' => 'HomeController@about']);
 Route::get('contact', ['as' => 'contact', 'uses' => 'HomeController@contact']);
 
+Route::resource('posts', 'ProfilesController');
+
 # profile
-Route::resource('profile', 'ProfilesController', ['only' => ['show', 'edit', 'update']]);
+//Route::resource('profiles', 'ProfilesController', ['only' => ['show', 'edit', 'update']]);
+Route::group(['prefix' => 'profiles'], function()
+{
+    Route::get('/{username}', ['uses' => 'ProfilesController@show', 'as' => 'profile.show']);
+    Route::get('/{username}/edit', ['uses' => 'ProfilesController@edit', 'as' => 'profile.edit']);
+    Route::put('/{username}', ['uses' => 'ProfilesController@update', 'as' => 'profile.update']);
+});
 
 # login
 Route::post('login', ['as' => 'sessions.store', 'uses' => 'SessionsController@store']);

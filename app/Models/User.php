@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Auth;
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
 	use Authenticatable, CanResetPassword;
@@ -45,7 +46,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function profile()
     {
-        return $this->hasOne('Profile');
+        return $this->hasOne('App\Models\Profile');
     }
 
     /**
@@ -53,7 +54,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function roles()
     {
-        return $this->belongsToMany('Role')->withTimestamps();
+        return $this->belongsToMany('App\Models\Role')->withTimestamps();
     }
 
     /**
@@ -61,7 +62,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function comments()
     {
-        return $this->hasMany('Comment');
+        return $this->hasMany('App\Models\Comment');
     }
 
     /**
@@ -82,6 +83,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function assignRole($role)
     {
         return $this->roles()->attach($role);
+    }
+
+    public function assignPost($post)
+    {
+        return $this->posts()->attach($post);
     }
 
     /**

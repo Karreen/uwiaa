@@ -1,17 +1,9 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Shane
- * Date: 2/24/2015
- * Time: 11:49 PM
- */
-
-namespace database\seeds;
+<?php namespace database\seeds;
 
 use App\Models\Role;
-use App\Models\User;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RoleTableSeeder extends Seeder{
 
@@ -19,7 +11,7 @@ class RoleTableSeeder extends Seeder{
     {
         $fake = Factory::create();
 
-        Role::truncate();
+        DB::table('roles')->delete();
 
         Role::create([
             'name' => 'student',

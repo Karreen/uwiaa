@@ -21,14 +21,14 @@
             {{--</li>--}}
             {{--</ul>--}}
             {{--</li>--}}
-            <li>{!! HTML::link('blog', 'Blog') !!}</li>
             <li>{!! HTML::link('about', 'About') !!}</li>
             <li>{!! HTML::link('contact', 'Contact') !!}</li>
             @if (Auth::guest())
                 <li>{!! HTML::link('login', 'Login') !!}</li>
                 <li>{!! HTML::link('register', 'Sign Up', ['class' => 'button special']) !!}</li>
             @else
-                <li>{!! link_to('/' . Auth::user()->username, Auth::user()->username) !!}</li>
+                <li>{!! HTML::link('posts', 'Forum') !!}</li>
+                <li>{!! link_to('/profiles/' . Auth::user()->username, Auth::user()->username) !!}</li>
                 <li>{!! HTML::link('logout', 'Logout') !!}</li>
             @endif
         </ul>

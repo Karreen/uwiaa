@@ -2,6 +2,8 @@
 
 use App\Http\Requests;
 
+use App\Models\Profile;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -16,27 +18,15 @@ class ProfilesController extends Controller
 //        $this->middleware('auth', ['except' => 'login']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
     public function show($username)
     {
         $user = User::with('profile')->whereUsername($username)->firstOrFail();
 
-        dd($user->toArray());
+//        dd($user->toArray());
 
         return view('profiles.show')->withUser($user);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
     public function edit($username)
     {
         $user = User::whereUsername($username)->firstOrFail();
@@ -44,19 +34,18 @@ class ProfilesController extends Controller
         return view('profiles.edit')->withUser($user);
     }
 
-
-    /**
-     * @param $username
-     * @param CreateProfileRequest $request
-     */
     public function update($username, CreateProfileRequest $request)
     {
-        dd($request->all());
+//        dd($request->all());
+
+        $profile = new Profile($request->only('street', 'city', 'bio', 'github_username'));
 
         $user = User::whereUsername($username)->firstOrFail();
 
-        $user->profile->fill($request->only('street', 'city', 'bio', 'github_username' ))->save();
+        $user->profile()->save($profile);
 
-        return new RedirectResponse(url('/home'));
+//        $user->profile->fill($request->only('street', 'city', 'bio', 'github_username' ))->save();
+
+        return new RedirectResponse(url('/profiles/' . $username));
     }
 }

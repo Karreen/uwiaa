@@ -2,9 +2,6 @@
 
 @section('meta-title', 'Profile')
 
-@section('styles')
-    <link rel="stylesheet" href="css/mystyle.css"/>
-@endsection
 
 @section('content')
     <!-- Main -->
@@ -22,7 +19,41 @@
             @endforeach
 
 
+            <div class="row">
+                <div class="4u  6u(xsmall)"><span class="image fit"><img src="images/pic02.jpg" alt=""/></span></div>
 
+                <div class="4u  6u(medium)">
+                @if ($user->profile)
+
+                        <h1>
+                            {{ $user->username  }}
+                            @if ($user->profile)
+                                |<small>{{ $user->profile->street }}, {{ $user->profile->city }}</small>
+                            @endif
+                        </h1>
+                    </div>
+
+                    <ul>
+                        <li>{!! link_to('http://github.com/' . $user->profile->github_username, 'View my work on Github') !!}</li>
+                    </ul>
+
+                @else
+                    <small>No Details</small>
+                @endif
+
+                @if ($user->isCurrent())
+                    {!! link_to_route('profile.edit', 'Edit', $user->username) !!}
+                @endif
+                </div>
+            </div>
+
+            <div>
+                @if ($user->profile)
+                    {{ $user->profile->bio }}
+                @else
+                    <small>No Details</small>
+                @endif
+            </div>
         </div>
     </div>
 @endsection

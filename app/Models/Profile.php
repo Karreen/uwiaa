@@ -8,7 +8,7 @@ class Profile extends Model {
      * @var array
      */
     protected $fillable = [
-        'street', 'city', 'parish', 'bio',
+        'user_id', 'street', 'city', 'parish', 'bio',
         'github_username'
     ];
 
@@ -17,7 +17,7 @@ class Profile extends Model {
      */
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\Models\User');
     }
 
     /**

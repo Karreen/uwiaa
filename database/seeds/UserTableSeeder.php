@@ -8,9 +8,9 @@
 
 namespace database\seeds;
 
-
-use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use Faker\Factory as Faker;
 
 class UserTableSeeder extends Seeder{
@@ -19,24 +19,24 @@ class UserTableSeeder extends Seeder{
     {
         $faker = Faker::create();
 
-        User::truncate();
+        DB::table('users')->delete();
 
         User::create([
             'username'  => 'Shadow',
             'email'     => 'shane@gmail.com',
-            'password'  => '1234'
+            'password'  => '123456'
         ]);
 
         User::create([
             'username'  => 'Fearon',
             'email'     => 'fearon@gmail.com',
-            'password'  => '1234'
+            'password'  => '123456'
         ]);
 
         User::create([
             'username'  => 'Jermaine',
             'email'     => 'jermain@gmail.com',
-            'password'  => '1234'
+            'password'  => '123456'
         ]);
 
         foreach (range(1, 30) as $index)
@@ -44,7 +44,7 @@ class UserTableSeeder extends Seeder{
             User::create([
                 'username'  => $faker->unique()->userName,
                 'email'     => $faker->unique()->email,
-                'password'  => '1234'
+                'password'  => '123456'
             ]);
         }
 
