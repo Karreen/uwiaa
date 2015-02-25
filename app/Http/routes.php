@@ -56,3 +56,14 @@ Route::group(['middleware' => 'auth'], function()
 //	'auth' => 'Auth\AuthController',
 //	'password' => 'Auth\PasswordController',
 //]);
+
+# php artisan make:event UserWasSignedIn
+# php artisan handler:event UpdateUserLogin --event="UserWasSigned"
+
+
+
+Route::get('/test', function(Dispatcher $bus)
+{
+//    $requst = \Illuminate\Http\Request::create('/', 'GET', ['first_name' => 'Shane', 'last_name' =>, ])
+//    $bus->dispatch(); # dispatch commands this easily :D
+});

@@ -5,7 +5,9 @@ use App\Events\UserWasSignedIn;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldBeQueued;
 
-class UpdateUserLastLogin {
+class UpdateUserLastLogin implements ShouldBeQueued{
+
+    use InteractsWithQueue;
 
 	/**
 	 * Create the event handler.
@@ -25,7 +27,10 @@ class UpdateUserLastLogin {
 	 */
 	public function handle(UserWasSignedIn $event)
 	{
-		dd($event);
+//        $this->release(30); // releases event back on to queue
+//		$this->delete(); // deletes from queue
+//        dd($event);
 	}
 
 }
+

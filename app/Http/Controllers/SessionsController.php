@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Commands\UserLoginCommand;
 use App\Events\UserWasSignedIn;
 use App\Http\Requests;
 
@@ -30,7 +31,8 @@ class SessionsController extends Controller {
 //        dd($request->only(['email', 'password']));
         if (Auth::attempt($request->only(['email', 'password'])))
         {
-            Event::fire(new UserWasSignedIn(Auth::user()->id));
+            $this->dispatch(new UserLoginCommand(Auth::user()));
+//            Event::fire(new UserWasSignedIn(Auth::user()));
             return Redirect::home();
         }
         return redirect('about');
