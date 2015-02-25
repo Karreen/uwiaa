@@ -11,7 +11,7 @@ class Post extends Model {
 
     public function tags()
     {
-        return $this->hasMany('')
+        return $this->belongsToMany('Tag');
     }
     public function user()
     {

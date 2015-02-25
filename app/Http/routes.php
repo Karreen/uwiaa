@@ -11,16 +11,19 @@
 |
 */
 
-//Route::get('/', 'WelcomeController@index');
-Route::get('/', 'HomeController@index');
+
 
 # main pages
+Route::get('/', 'HomeController@index');
 Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('about', ['as' => 'about', 'uses' => 'HomeController@about']);
 Route::get('contact', ['as' => 'contact', 'uses' => 'HomeController@contact']);
 
+# profile
+Route::resource('profile', 'ProfilesController', ['only' => ['show', 'edit', 'update']]);
+
+# login
 Route::post('login', ['as' => 'sessions.store', 'uses' => 'SessionsController@store']);
-//Route::resource('session', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
 Route::group(['prefix' => 'admin'], function()
 {

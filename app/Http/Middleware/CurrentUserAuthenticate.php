@@ -1,13 +1,18 @@
 <?php namespace App\Http\Middleware;
 
-use App\Models\Role;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
-class AdminAuthenticate {
+class CurrentUserAuthenticate {
 
+    /**
+     * @var
+     */
     protected $auth;
 
+    /**
+     * @param Guard $auth
+     */
     function __construct(Guard $auth)
     {
         $this->auth = $auth;
@@ -22,14 +27,8 @@ class AdminAuthenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
-        if (! $this->auth->check()) // if the user is not logged in
-        {
-            return redirect()->guest('admin/login');
-        }
-        else if ($this->auth->user()->roles()->admin()) // the user is not a =n admin
-        {
-            return redirect()->guest('home');
-        }
+        if (! $this->auth->user()->isCurrent())
+            return redirect()->guest('login');
 
 		return $next($request);
 	}
