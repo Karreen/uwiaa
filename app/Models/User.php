@@ -32,19 +32,73 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    /**
+     * @param $password
+     */
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::make($password);
     }
 
     /**
-     * The scope of an administrator
-     *
-     * @param $query
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function scopeAdmin($query)
+    public function profile()
     {
-        return $query->whereRole('admin');
+        return $this->hasOne('Profile');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('Role')->withTimestamps();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany('Comment');
+    }
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function hasRole($name)
+    {
+        foreach ($this->roles() as $role)
+        {
+            if ($role->name == $name) return true;
+        }
+    }
+
+    /**
+     * @param $role
+     */
+    public function assignRole($role)
+    {
+        return $this->roles()->attach($role);
+    }
+
+    /**
+     * @param $role
+     * @return int
+     */
+    public function removeRole($role)
+    {
+        return $this->roles()->detach($role);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCurrent()
+    {
+        if (Auth::guest()) return false;
+        return Auth::user()->id == $this->id;
     }
 }
