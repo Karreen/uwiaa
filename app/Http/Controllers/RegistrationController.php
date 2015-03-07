@@ -8,7 +8,14 @@ use Illuminate\Support\Facades\Redirect;
 
 class RegistrationController extends Controller {
 
-	/**
+    private $user;
+
+    function __construct(\UserRepositoryInteferface $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response

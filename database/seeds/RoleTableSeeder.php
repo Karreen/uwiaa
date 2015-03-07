@@ -7,12 +7,18 @@ use Illuminate\Support\Facades\DB;
 
 class RoleTableSeeder extends Seeder{
 
-    public function run()
+    public function run(Role $role)
     {
-        $fake = Factory::create();
-
         DB::table('roles')->delete();
 
+        $allRoles = [
+            'member', 'alumnus', 'student', 'mentor', 'admin'
+        ];
+
+        foreach ($allRoles as $newRole)
+        {
+
+        }
         Role::create([
             'name' => 'student',
         ]);

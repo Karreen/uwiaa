@@ -29,6 +29,12 @@ class AppServiceProvider extends ServiceProvider {
 			'Illuminate\Contracts\Auth\Registrar',
 			'App\Services\Registrar'
 		);
+
+        // Repository <-> Interface bindings
+        $this->app->bind(
+            'App\Repositories\Interfaces\UserRepositoryInterface',
+            'App\Repositories\UserRepository'
+        );
 	}
 
 }
