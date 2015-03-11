@@ -5,12 +5,24 @@ use App\Events\UserWasSignedIn;
 use App\Http\Requests;
 
 use App\Http\Requests\CreateLoginRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
+use App\Repositories\Interfaces\UserRepositoryInterface as User;
 use Illuminate\Support\Facades\Redirect;
 
 
 class SessionsController extends Controller {
+
+    /**
+     * @var User
+     */
+    protected $user;
+
+    /**
+     * @param User $user
+     */
+    function __construct(User $user)
+    {
+        $this->user = $user;
+    }
 
     /**
 	 * Show the form for creating a new resource.
@@ -25,30 +37,30 @@ class SessionsController extends Controller {
 
     /**
      * @param CreateLoginRequest $request
+     * @return Redirect
      */
     public function store(CreateLoginRequest $request)
 	{
-//        dd($request->only(['email', 'password']));
-        if (Auth::attempt($request->only(['email', 'password'])))
+        $user = $this->user->login($request->only(['email', 'password']));
+
+        if ($user)
         {
-            $this->dispatch(new UserLoginCommand(Auth::user()));
-//            Event::fire(new UserWasSignedIn(Auth::user()));
-            return Redirect::home();
+            $this->dispatch(new UserLoginCommand($user));
+            return redirect('home');
         }
-        return redirect('about');
+        return redirect()->back()->withInput();
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id = null)
-	{
-		Auth::logout();
 
-        return Redirect::home();
+    /**
+     * @param null $id
+     * @return Redirect
+     */
+    public function destroy($id = null)
+	{
+        $this->user->logout();
+
+        return redirect('home');
 	}
 
 }

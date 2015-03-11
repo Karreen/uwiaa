@@ -19,7 +19,6 @@ Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('about', ['as' => 'about', 'uses' => 'HomeController@about']);
 Route::get('contact', ['as' => 'contact', 'uses' => 'HomeController@contact']);
 
-Route::resource('posts', 'ProfilesController');
 
 # profile
 //Route::resource('profiles', 'ProfilesController', ['only' => ['show', 'edit', 'update']]);
@@ -39,13 +38,11 @@ Route::group(['prefix' => 'admin'], function()
     Route::post('login', ['as' => 'admin.store', 'uses' => 'AdminController@store']);
 });
 
-
 # restrict from authenticated users
 Route::group(['middleware' => 'guest'], function()
 {
     # login
     Route::get('login', ['uses' => 'SessionsController@create']);
-
 
     # registration
     Route::get('register', 'RegistrationController@create');
@@ -62,6 +59,13 @@ Route::group(['middleware' => 'auth'], function()
         'middleware' => 'auth'
     ]);
 });
+
+Route::group(['prefix' => 'forum'], function()
+{
+    Route::get('/', ['as' => 'forum', 'uses' => 'PostsController@index']);
+    Route::resource('posts', 'PostsController');
+});
+
 //
 //Route::controllers([
 //	'auth' => 'Auth\AuthController',

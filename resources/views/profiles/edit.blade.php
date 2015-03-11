@@ -27,12 +27,6 @@
                     {!! Form::text('github_username', null, ['placeholder' => 'Github Username']) !!}
                 </div>
                 <div class="12u$">
-                    {!! Form::text('email', null, ['placeholder' => 'Email', 'required' => 'required', 'id' => 'email']) !!}
-                </div>
-                <div class="12u$">
-                    {!! Form::text('username', null, ['placeholder' => 'AA Username', 'required' => 'required']) !!}
-                </div>
-                <div class="12u$">
                     {!! Form::text('street', null, ['placeholder' => 'Street']) !!}
                 </div>
                 <div class="12u$">

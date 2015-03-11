@@ -1,72 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - uwics@localhost" uuid="0feb3f26-4829-43e1-adf9-bd0331f2a834">
-    <database-info product="MySQL" version="5.6.22-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+  <data-source name="MySQL - uwiaa@localhost" uuid="9c2e9cba-8568-4d31-b372-fc9bbebacb01">
+    <database-info product="MySQL" version="5.6.23-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
-    <schema name="" catalog="uwics"/>
-    <table name="comments" schema="" catalog="uwics" type="TABLE">
+    <schema name="" catalog="uwiaa"/>
+    <table name="comments" schema="" catalog="uwiaa" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="post_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="title" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="body" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="comments_post_id_foreign" columns="post_id" ref-table="posts" ref-schema="" ref-catalog="uwiaa" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="comments_user_id_foreign" columns="user_id" ref-table="users" ref-schema="" ref-catalog="uwiaa" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="comments_post_id_foreign" unique="false" columns="post_id"/>
+      <index name="comments_user_id_foreign" unique="false" columns="user_id"/>
     </table>
-    <table name="migrations" schema="" catalog="uwics" type="TABLE">
+    <table name="migrations" schema="" catalog="uwiaa" type="TABLE">
       <column name="migration" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="batch" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
     </table>
-    <table name="password_resets" schema="" catalog="uwics" type="TABLE">
+    <table name="password_resets" schema="" catalog="uwiaa" type="TABLE">
       <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="token" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <index name="password_resets_email_index" unique="false" columns="email"/>
       <index name="password_resets_token_index" unique="false" columns="token"/>
     </table>
-    <table name="posts" schema="" catalog="uwics" type="TABLE">
+    <table name="post_tag" schema="" catalog="uwiaa" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="post_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="tag_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="post_tag_post_id_foreign" columns="post_id" ref-table="posts" ref-schema="" ref-catalog="uwiaa" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="post_tag_tag_id_foreign" columns="tag_id" ref-table="tags" ref-schema="" ref-catalog="uwiaa" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="post_tag_post_id_foreign" unique="false" columns="post_id"/>
+      <index name="post_tag_tag_id_foreign" unique="false" columns="tag_id"/>
+    </table>
+    <table name="posts" schema="" catalog="uwiaa" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="body" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="image" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="deleted_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="comments_post_id_foreign" table="comments" schema="" catalog="uwiaa" columns="post_id"/>
+      <exported-key name="post_tag_post_id_foreign" table="post_tag" schema="" catalog="uwiaa" columns="post_id"/>
     </table>
-    <table name="profiles" schema="" catalog="uwics" type="TABLE">
+    <table name="profiles" schema="" catalog="uwiaa" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="street" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="bio" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="github_username" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="profiles_user_id_foreign" columns="user_id" ref-table="users" ref-schema="" ref-catalog="uwiaa" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="profiles_user_id_foreign" unique="false" columns="user_id"/>
     </table>
-    <table name="role_user" schema="" catalog="uwics" type="TABLE">
+    <table name="role_user" schema="" catalog="uwiaa" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="role_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="role_user_role_id_foreign" columns="role_id" ref-table="roles" ref-schema="" ref-catalog="uwics" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
-      <foreign-key name="role_user_user_id_foreign" columns="user_id" ref-table="users" ref-schema="" ref-catalog="uwics" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="role_user_role_id_foreign" columns="role_id" ref-table="roles" ref-schema="" ref-catalog="uwiaa" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="role_user_user_id_foreign" columns="user_id" ref-table="users" ref-schema="" ref-catalog="uwiaa" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <index name="role_user_role_id_foreign" unique="false" columns="role_id"/>
       <index name="role_user_user_id_foreign" unique="false" columns="user_id"/>
     </table>
-    <table name="roles" schema="" catalog="uwics" type="TABLE">
+    <table name="roles" schema="" catalog="uwiaa" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="role_user_role_id_foreign" table="role_user" schema="" catalog="uwics" columns="role_id"/>
+      <exported-key name="role_user_role_id_foreign" table="role_user" schema="" catalog="uwiaa" columns="role_id"/>
       <index name="roles_name_unique" unique="true" columns="name"/>
     </table>
-    <table name="users" schema="" catalog="uwics" type="TABLE">
+    <table name="tags" schema="" catalog="uwiaa" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="post_tag_tag_id_foreign" table="post_tag" schema="" catalog="uwiaa" columns="tag_id"/>
+    </table>
+    <table name="users" schema="" catalog="uwiaa" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="username" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
       <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="password" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_login" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="remember_token" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="role_user_user_id_foreign" table="role_user" schema="" catalog="uwics" columns="user_id"/>
+      <exported-key name="comments_user_id_foreign" table="comments" schema="" catalog="uwiaa" columns="user_id"/>
+      <exported-key name="profiles_user_id_foreign" table="profiles" schema="" catalog="uwiaa" columns="user_id"/>
+      <exported-key name="role_user_user_id_foreign" table="role_user" schema="" catalog="uwiaa" columns="user_id"/>
       <index name="users_email_unique" unique="true" columns="email"/>
       <index name="users_username_unique" unique="true" columns="username"/>
     </table>

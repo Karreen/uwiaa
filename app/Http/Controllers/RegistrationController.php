@@ -3,14 +3,14 @@
 use App\Http\Requests;
 
 use App\Http\Requests\CreateRegistrationRequest;
-use App\Models\User;
+use App\Repositories\Interfaces\UserRepositoryInterface as User;
 use Illuminate\Support\Facades\Redirect;
 
 class RegistrationController extends Controller {
 
     private $user;
 
-    function __construct(\UserRepositoryInteferface $user)
+    function __construct(User $user)
     {
         $this->user = $user;
     }
@@ -31,11 +31,15 @@ class RegistrationController extends Controller {
      */
     public function store(CreateRegistrationRequest $request)
 	{
-//        dd($request->only('username', 'email', 'password', 'password_confirmation'));
-        $user = User::create($request->only('username', 'email', 'password', 'password_confirmation'));
 
-        $user->assignRole('alumni');
-        $user->save();
+        $user = $this->user->create($request->only('username', 'email', 'password'));
+
+//        if ($user)
+//        {
+//            $user->addRole('member');
+//        }
+//        $this->user->assignRole('alumni');
+//        $this->user->save();
 
         return Redirect::home();
 	}

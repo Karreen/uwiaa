@@ -22,8 +22,8 @@ class CreateProfileRequest extends Request {
 	public function rules()
 	{
 		return [
-			'username'  => 'required|min:3|unique:users',
-            'email'     => 'required|email|unique:users'
+//			'username'  => 'required|min:3|unique:users',
+//            'email'     => 'required|email|unique:users'
 		];
 	}
 

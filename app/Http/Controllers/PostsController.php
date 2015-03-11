@@ -25,7 +25,7 @@ class PostsController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return 'create';
 	}
 
 	/**
@@ -35,7 +35,7 @@ class PostsController extends Controller {
 	 */
 	public function store()
 	{
-		//
+		return 'store';
 	}
 
 	/**
@@ -46,7 +46,7 @@ class PostsController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		return 'show';
 	}
 
 	/**
@@ -57,7 +57,7 @@ class PostsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		return 'edit';
 	}
 
 	/**
@@ -68,7 +68,7 @@ class PostsController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		return 'update';
 	}
 
 	/**
@@ -79,7 +79,7 @@ class PostsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		return 'destroy';
 	}
 
 }
