@@ -60,11 +60,9 @@ Route::group(['middleware' => 'auth'], function()
     ]);
 });
 
-Route::group(['prefix' => 'forum'], function()
-{
-    Route::get('/', ['as' => 'forum', 'uses' => 'PostsController@index']);
-    Route::resource('posts', 'PostsController');
-});
+Route::resource('posts', 'PostsController');
+
+Route::get('forum', 'PostsController@index');
 
 //
 //Route::controllers([

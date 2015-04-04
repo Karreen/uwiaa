@@ -1,20 +1,29 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreatePostRequest;
+use App\Repositories\Interfaces\PostRepositoryInterface as Post;
 
 class PostsController extends Controller {
 
-	/**
+    protected $post;
+
+    function __construct(Post $post)
+    {
+        $this->middleware('auth', ['only' => ['store']]);
+
+        $this->post = $post;
+    }
+
+    /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
+//        return 'index';
 		return view('posts.index')->withPosts(Post::paginate(10));
 	}
 
@@ -25,16 +34,17 @@ class PostsController extends Controller {
 	 */
 	public function create()
 	{
-		return 'create';
+		return view('posts.create');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+
+    /**
+     * @param CreatePostRequest $request
+     * @return string
+     */
+    public function store(CreatePostRequest $request)
 	{
+        dd($request->only('title', 'content'));
 		return 'store';
 	}
 

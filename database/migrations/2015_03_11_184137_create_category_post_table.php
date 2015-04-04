@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostTagTable extends Migration {
+class CreateCategoryPostTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,15 @@ class CreatePostTagTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('post_tag', function(Blueprint $table)
-        {
-            $table->increments('id');
+		Schema::create('category_post', function(Blueprint $table)
+		{
+			$table->increments('id');
             $table->integer('post_id')->unsigned();
             $table->foreign('post_id')->references('id')->on('posts');
-            $table->integer('tag_id')->unsigned();
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
-
-        });
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+			$table->timestamps();
+		});
 	}
 
 	/**
@@ -30,7 +30,7 @@ class CreatePostTagTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('post_tag');
+		Schema::drop('category_post');
 	}
 
 }

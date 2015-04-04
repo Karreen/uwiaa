@@ -3,14 +3,14 @@
 use App\Http\Requests;
 
 use App\Http\Requests\CreateRegistrationRequest;
-use App\Repositories\Interfaces\UserRepositoryInterface as User;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Redirect;
 
 class RegistrationController extends Controller {
 
     private $user;
 
-    function __construct(User $user)
+    function __construct(UserRepositoryInterface $user)
     {
         $this->user = $user;
     }
