@@ -1,30 +1,20 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
-use App\Http\Requests\CreatePostRequest;
-use App\Repositories\Interfaces\PostRepositoryInterface as Post;
-use Illuminate\Auth\Guard;
+use Illuminate\Http\Request;
 
-class PostsController extends Controller {
+class TesttController extends Controller {
 
-    protected $post;
-
-    function __construct(Post $post)
-    {
-        $this->middleware('auth', ['only' => ['store']]);
-
-        $this->post = $post;
-    }
-
-    /**
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-		return view('posts.index');
+		//
 	}
 
 	/**
@@ -34,20 +24,17 @@ class PostsController extends Controller {
 	 */
 	public function create()
 	{
-		return view('posts.create');
+		//
 	}
 
-
-    /**
-     * @param CreatePostRequest $request
-     * @return string
-     */
-    public function store(CreatePostRequest $request, Guard $auth)
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
 	{
-
-        $post = $this->post->create($request->only('title', 'content'));
-
-		return redirect()->route('posts.show', ['id' => $post->id]);
+		//
 	}
 
 	/**
@@ -58,11 +45,7 @@ class PostsController extends Controller {
 	 */
 	public function show($id)
 	{
-        $post = $this->post->find($id);
-
-		return view('posts.show')->withPost($post);
-
-
+		//
 	}
 
 	/**
@@ -73,7 +56,7 @@ class PostsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		return 'edit';
+		//
 	}
 
 	/**
@@ -84,7 +67,7 @@ class PostsController extends Controller {
 	 */
 	public function update($id)
 	{
-		return 'update';
+		//
 	}
 
 	/**
@@ -95,7 +78,7 @@ class PostsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		return 'destroy';
+		//
 	}
 
 }

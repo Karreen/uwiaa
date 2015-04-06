@@ -64,6 +64,9 @@ Route::resource('posts', 'PostsController');
 
 Route::get('forum', 'PostsController@index');
 
+Route::get('posts/{post_id}/comments/', 'CommentController@index');
+Route::post('posts/{post_id}/comments/', 'CommentController@store');
+
 //
 //Route::controllers([
 //	'auth' => 'Auth\AuthController',

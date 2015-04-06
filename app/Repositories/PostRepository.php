@@ -8,17 +8,21 @@
 
 namespace App\Repositories;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Repositories\Interfaces\PostRepositoryInterface;
 use Illuminate\Auth\Guard;
 
 class PostRepository implements PostRepositoryInterface {
 
-    protected $post, $auth;
+    protected $post;
+    protected $comment;
+    protected $auth;
 
-    function __construct(Post $post, Guard $auth)
+    function __construct(Post $post, Comment $comment, Guard $auth)
     {
         $this->post = $post;
+        $this->comment = $comment;
         $this->auth = $auth;
     }
 
@@ -35,12 +39,38 @@ class PostRepository implements PostRepositoryInterface {
 
     public function create($attributes)
     {
-        $post = $this->post->create($attributes);
+
+//        $post = $this->post->create($attributes);
+//
+        $post = new Post($attributes);
 
         $user = $this->auth->user();
 
-        $user->posts()->associate($post);
+        $user->posts()->save($post);
 
-        $user->save();
+        return $post;
+
+    }
+
+    public function getComments($post_id)
+    {
+        return $this->comment->forPost($post_id)->with('user', 'post')->get();
+    }
+
+    public function addComment($message, $post_id)
+    {
+        $post = $this->post->find($post_id);
+        $user = $this->auth->user();
+
+
+        $comment = new Comment($message);
+
+//            $post->comments()->save($comment);
+        $comment->post()->associate($post);
+        $comment->user()->associate($user);
+        $comment->save();
+
+        return $comment;
+
     }
 }

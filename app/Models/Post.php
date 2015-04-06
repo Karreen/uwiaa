@@ -6,7 +6,7 @@ class Post extends Model {
 
 	protected $fillable = [
         'user_id', 'title', 'content',
-        'image'
+        'image', 'user_id'
     ];
 
     public function tags()
@@ -22,5 +22,6 @@ class Post extends Model {
     {
         return $this->hasMany('App\Models\Comment');
     }
+
 
 }

@@ -20,28 +20,19 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-    {{--<script src="js/jquery.min.js"></script>--}}
+
     {!! HTML::script('js/jquery.min.js')  !!}
-    {{--<script src="js/jquery.scrolly.min.js"></script>--}}
     {!! HTML::script('js/jquery.scrolly.min.js')  !!}
-    {{--<script src="js/jquery.dropotron.min.js"></script>--}}
     {!! HTML::script('js/jquery.dropotron.min.js')  !!}
-    {{--<script src="js/jquery.scrollex.min.js"></script>--}}
     {!! HTML::script('js/jquery.scrollex.min.js')  !!}
-    {{--<script src="js/skel.min.js"></script>--}}
     {!! HTML::script('js/skel.min.js')  !!}
-    {{--<script src="js/skel-layers.min.js"></script>--}}
     {!! HTML::script('js/skel-layers.min.js')  !!}
-    {{--<script src="js/init.js"></script>--}}
     {!! HTML::script('js/init.js')  !!}
-    {{--<noscript>--}}
-        {{--<link rel="stylesheet" href="css/skel.css" />--}}
-        {!! HTML::style('css/skel.css') !!}
-        {{--<link rel="stylesheet" href="css/style.css" />--}}
-        {!! HTML::style('css/style.css') !!}
-        {{--<link rel="stylesheet" href="css/style-xlarge.css" />--}}
-        {!! HTML::style('css/style-xlarge.css') !!}
-    {{--</noscript>--}}
+
+    {!! HTML::style('css/skel.css') !!}
+    {!! HTML::style('css/style.css') !!}
+    {!! HTML::style('css/style-xlarge.css') !!}
+
     {{--<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->--}}
     {{--<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->--}}
     <!--[if lte IE 9]>{!! HTML::style('css/ie/v9.css') !!}<![endif]-->

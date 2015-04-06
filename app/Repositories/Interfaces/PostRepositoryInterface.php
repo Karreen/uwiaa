@@ -8,5 +8,7 @@ interface PostRepositoryInterface {
 
     public function create($attributes);
 
+    public function getComments($post_id);
 
+    public function addComment($message, $post_id);
 }
