@@ -3,7 +3,7 @@
         <ul>
             <li ng-repeat="comment in comments | orderBy:'-created_at'">
                 <p>{{ comment.content }}</p>
-                <p>{{ comment.user.username }}</p>
+                <p>by {{ comment.user.username }} at {{ comment.created_at }}</p>
             </li>
         </ul>
 

@@ -17,10 +17,26 @@
 
                     <!-- Content -->
                     <section id="content">
-                        <h3>Amet Lorem Tempus</h3>
 
-                        <p>Sed tristique purus vitae volutpat commodo suscipit amet sed nibh. Proin a ullamcorper sed blandit. Sed
-                            tristique purus vitae volutpat commodo suscipit ullamcorper sed blandit lorem ipsum dolore.</p>
+                        <div class="table-wrapper">
+                            <table class="alt">
+                                <tbody>
+                                @foreach($posts as $post)
+                                <tr>
+                                    <td>
+                                        {!! link_to('/posts/' . $post->id, $post->title) !!}
+
+                                    </td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+
+                            </table>
+                        </div>
+                        {{--<h3>Amet Lorem Tempus</h3>--}}
+
+                        {{--<p>Sed tristique purus vitae volutpat commodo suscipit amet sed nibh. Proin a ullamcorper sed blandit. Sed--}}
+                            {{--tristique purus vitae volutpat commodo suscipit ullamcorper sed blandit lorem ipsum dolore.</p>--}}
 
                         {{--<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>--}}
                         {{--<h3>Dolore Amet Consequat</h3>--}}

@@ -28,6 +28,7 @@
                         <h1>
                             {{ $user->username  }}
                             @if ($user->profile)
+
                                 |<small>{{ $user->profile->street }}, {{ $user->profile->city }}</small>
                             @endif
                         </h1>
