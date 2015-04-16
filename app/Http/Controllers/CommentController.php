@@ -55,10 +55,6 @@ class CommentController extends Controller {
         $comment = $this->post->addComment($request->only('content'), $post_id);
 
         return $comment->toJson();
-
-
-//        $post = $this->post->find($post_id);
-//		return $post->toJson();
 	}
 
 	/**

@@ -4,7 +4,6 @@ use App\Http\Requests;
 
 use App\Http\Requests\CreatePostRequest;
 use App\Repositories\Interfaces\PostRepositoryInterface as Post;
-use Illuminate\Auth\Guard;
 
 class PostsController extends Controller {
 
@@ -42,7 +41,7 @@ class PostsController extends Controller {
      * @param CreatePostRequest $request
      * @return string
      */
-    public function store(CreatePostRequest $request, Guard $auth)
+    public function store(CreatePostRequest $request)
 	{
 
         $post = $this->post->create($request->only('title', 'content'));
