@@ -19,6 +19,7 @@ class Role extends Model {
         return $this->belongsToMany('App\Models\User');
     }
 
+    # SCOPES
 
     /**
      * The scope of an administrator
@@ -39,4 +40,20 @@ class Role extends Model {
     {
         return $query->whereName('mentor');
     }
+
+    public function scopeMember($query)
+    {
+        return $query->whereName('member');
+    }
+
+    public function scopeStudent($query)
+    {
+        return $query->whereName('student');
+    }
+
+    public function scopeAlumni($query)
+    {
+        return $query->whereName('alumni');
+    }
+
 }

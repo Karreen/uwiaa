@@ -109,7 +109,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function isCurrent()
     {
-        if (Auth::guest()) return false;
+//        if (Auth::guest()) return false;
         return Auth::user()->id == $this->id;
     }
+
+
 }

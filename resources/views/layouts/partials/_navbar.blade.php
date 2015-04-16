@@ -21,8 +21,9 @@
             {{--</li>--}}
             {{--</ul>--}}
             {{--</li>--}}
-            <li>{!! HTML::link('about', 'About') !!}</li>
-            <li>{!! HTML::link('contact', 'Contact') !!}</li>
+            {{--<li>{!! HTML::link('about', 'About') !!}</li>--}}
+            {{--<li>{!! HTML::link('contact', 'Contact') !!}</li>--}}
+            <li>{!! HTML::link('blog', 'Blog') !!}</li>
             @if (Auth::guest())
                 <li>{!! HTML::link('login', 'Login') !!}</li>
                 <li>{!! HTML::link('register', 'Sign Up', ['class' => 'button special']) !!}</li>

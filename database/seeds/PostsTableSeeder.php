@@ -30,14 +30,16 @@ class PostsTableSeeder extends Seeder
 
         DB::table('posts')->delete();
 
-        $user = User::first();
+        $user = User::find(1);
 
         foreach (range(1, 30) as $index) {
-            $post = Post::create([
+            $post = new Post([
                 'title'     => $faker->sentence,
                 'body'      => $faker->paragraph(2),
-                'image'     => $faker->imageUrl(300, 200)
+                'image'     => $faker->imageUrl(300, 200),
             ]);
+
+            $user->posts()->save($post);
 
 //            $user->assignPost($post);
         }

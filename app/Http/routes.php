@@ -18,7 +18,7 @@ Route::get('/', 'HomeController@index');
 Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('about', ['as' => 'about', 'uses' => 'HomeController@about']);
 Route::get('contact', ['as' => 'contact', 'uses' => 'HomeController@contact']);
-
+Route::get('blog', ['as' => 'blog', 'uses' => 'HomeController@blog']);
 
 # profile
 //Route::resource('profiles', 'ProfilesController', ['only' => ['show', 'edit', 'update']]);

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder{
 
@@ -24,19 +25,19 @@ class UserTableSeeder extends Seeder{
         User::create([
             'username'  => 'Shadow',
             'email'     => 'shane@gmail.com',
-            'password'  => '123456'
+            'password'  => Hash::make('123456')
         ]);
 
         User::create([
             'username'  => 'Fearon',
             'email'     => 'fearon@gmail.com',
-            'password'  => '123456'
+            'password'  => Hash::make('123456')
         ]);
 
         User::create([
             'username'  => 'Jermaine',
             'email'     => 'jermain@gmail.com',
-            'password'  => '123456'
+            'password'  => Hash::make('123456')
         ]);
 
         foreach (range(1, 30) as $index)

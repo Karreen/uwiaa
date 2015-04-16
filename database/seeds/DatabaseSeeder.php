@@ -18,8 +18,13 @@ class DatabaseSeeder extends Seeder {
 		Model::unguard();
 
 		$this->call('database\seeds\UserTableSeeder');
+        $this->command->info('Users table seeded!');
+
         $this->call('database\seeds\RoleTableSeeder');
+        $this->command->info('Roles table seeded!');
+
         $this->call('database\seeds\PostsTableSeeder');
+
 //        $this->call('database\seeds\ProfileTableSeeder');
 //        $this->call('database\seeds\RoleUserTableSeeder');
 //        $this->call('database\seeds\ProfileUserTableSeeder');
