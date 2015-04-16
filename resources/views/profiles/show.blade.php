@@ -20,7 +20,9 @@
 
 
             <div class="row">
-                <div class="4u  6u(xsmall)"><span class="image fit"><img src="images/pic02.jpg" alt=""/></span></div>
+                @if ($user->profile == null)
+                    <div class="4u  6u(xsmall)"><span class="image fit"><img src="images/pic02.jpg" alt=""/></span></div>
+                @endif
 
                 <div class="4u  6u(medium)">
                 @if ($user->profile)

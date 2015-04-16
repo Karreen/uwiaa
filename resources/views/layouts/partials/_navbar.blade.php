@@ -29,7 +29,13 @@
                 <li>{!! HTML::link('register', 'Sign Up', ['class' => 'button special']) !!}</li>
             @else
                 <li>{!! HTML::link('posts', 'Forum') !!}</li>
-                <li>{!! link_to('/profiles/' . Auth::user()->username, Auth::user()->username) !!}</li>
+                <li>
+                    {!! link_to('/profiles/' . Auth::user()->username, Auth::user()->username) !!}
+                    <ul>
+                        <li>{!! link_to('/profiles/' . Auth::user()->username, 'Profile') !!}</li>
+                        <li>{!! link_to('/messages/' . Auth::user()->username, 'Messages') !!}</li>
+                    </ul>
+                </li>
                 <li>{!! HTML::link('logout', 'Logout') !!}</li>
             @endif
         </ul>
