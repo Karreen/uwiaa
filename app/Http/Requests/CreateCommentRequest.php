@@ -23,7 +23,6 @@ class CreateCommentRequest extends Request {
 	{
 		return [
 			'content'   => 'required',
-            'title'     => 'required',
 		];
 	}
 
