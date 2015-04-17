@@ -33,6 +33,12 @@ class MessagesController extends Controller {
 	{
         $user = $this->user->whereUsername($username)->first();
 
+        $messages = User::has('receiver')->get();
+
+        foreach ($user->receiver as $message)
+            echo $message;
+
+//        dd($messages);
 //        return view('messages.index')->withMessages($this->auth->user()->receiver());
 
         return view('messages.index');

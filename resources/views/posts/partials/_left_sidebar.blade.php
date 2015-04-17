@@ -24,7 +24,7 @@
             </div>
             <footer>
                 <ul class="actions">
-                    <li><a href="#" class="button">Learn More</a></li>
+                    <li>{!! HTML::link('/posts/create', 'Create Post', ['class' => 'button']) !!}</li>
                 </ul>
             </footer>
         </section>

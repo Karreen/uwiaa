@@ -9,7 +9,6 @@ class Message extends Model {
 
     protected $table = 'messages';
 
-    protected $dates = ['deleted_at'];
 
 	protected $fillable = [
         'content', 'title',
