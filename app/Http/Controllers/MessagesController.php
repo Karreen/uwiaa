@@ -2,17 +2,23 @@
 
 use App\Http\Requests;
 use App\Http\Requests\CreateMessageRequest;
+use App\Models\User;
 use App\Repositories\Interfaces\MessageRepositoryInterface as Message;
-use Illuminate\Auth\Guard;
+use Illuminate\Contracts\Auth\Guard;
+
 
 class MessagesController extends Controller {
 
     protected $message;
+    protected $auth;
+    protected $user;
 
-    function __construct(Message $message)
+    function __construct(Message $message, Guard $auth, User $user)
     {
-//        $this->middleware('auth.current');
+        $this->middleware('auth.current', ['only' => ['index']]);
         $this->message = $message;
+        $this->auth = $auth;
+        $this->user = $user;
     }
 
     /**
@@ -23,9 +29,13 @@ class MessagesController extends Controller {
      * @param Guard $auth
      * @return \Illuminate\View\View
      */
-    public function index($request, $username, Guard $auth)
+    public function index($username)
 	{
-        return view('messages.index')->withMessages($auth->user()->receiver());
+        $user = $this->user->whereUsername($username)->first();
+
+//        return view('messages.index')->withMessages($this->auth->user()->receiver());
+
+        return view('messages.index');
 	}
 
 	/**

@@ -47,11 +47,15 @@ class HomeController extends Controller {
         return view('home.contact');
     }
 
-    public function blog()
+    public function blog(Post $post)
     {
-        $posts = Post::paginate(6);
+//        $posts = Post::paginate(6);
 
-        return view('home.blog')->withPosts($posts);
+        $posts = $post->paginate(6);
+
+        return view('home.blog', compact('posts'));
+
+//        return view('home.blog')->withPosts($posts);
 //        return View::make('home.blog', [
 //            'posts' => Post::paginate(6)
 //        ]);
