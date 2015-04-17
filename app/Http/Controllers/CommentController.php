@@ -15,6 +15,8 @@ class CommentController extends Controller {
 
     function __construct(PostRepositoryInterface $post)
     {
+        $this->middleware('auth.current');
+
         $this->post = $post;
     }
 
@@ -52,7 +54,7 @@ class CommentController extends Controller {
      */
     public function store($post_id, CreateCommentRequest $request)
 	{
-        $comment = $this->post->addComment($request->only('content'), $post_id);
+        $comment = $this->post->addComment($request->only(['title', 'content']), $post_id);
 
         return $comment->toJson();
 	}

@@ -4,12 +4,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model {
 
+    protected $table = 'profiles';
+
     /**
      * @var array
      */
     protected $fillable = [
         'user_id', 'street', 'city', 'parish', 'bio',
-        'github_username'
+        'github_username', 'twitter_username'
     ];
 
     /**

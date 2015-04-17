@@ -4,8 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alert extends Model {
 
+    protected $table = 'alerts';
+
 	protected $fillable = [
-        'name'
+        'name', 'description'
     ];
 
     public function messages()

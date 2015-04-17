@@ -21,6 +21,7 @@ class CreateProfilesTable extends Migration {
             $table->string('city')->nullable();
             $table->text('bio')->nullable();
             $table->string('github_username')->nullable();
+            $table->string('twitter_username')->nullable();
 			$table->timestamps();
 		});
 	}

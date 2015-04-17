@@ -150,12 +150,16 @@ class UserRepository implements UserRepositoryInterface {
     }
 
 
-    public function updateProfile($attributes)
+    public function updateProfile($username, $attributes)
     {
-        $profile = $this->profile->create($attributes);
+//        $profile = $this->profile->create($attributes);
 
-        $user = $this->user->whereUsername('username')->firstOrFail();
+        $profile = new Profile($attributes);
 
-        $user->profile->save($profile);
+        $user = $this->user->whereUsername($username)->firstOrFail();
+
+        $user->profile()->save($profile);
+
+        return $profile;
     }
 }

@@ -24,7 +24,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['username', 'email', 'password'];
+	protected $fillable = [
+        'username', 'email', 'password', 'last_login'
+    ];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -70,6 +72,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Models\Comment');
     }
 
+    public function message()
+    {
+        return $this->hasMany('App\Models\Message');
+    }
+
+    public function sender()
+    {
+        return $this->hasMany('App\Models\Message', 'sender_id');
+    }
+
+    public function receiver()
+    {
+        return $this->hasMany('App\Models\Message', 'receiver_id');
+    }
+
     /**
      * @param $name
      * @return bool
@@ -80,7 +97,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         {
             if ($role->name == $name) return true;
         }
+        return false;
     }
+
+
 
     /**
      * @param $role
@@ -112,6 +132,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 //        if (Auth::guest()) return false;
         return Auth::user()->id == $this->id;
     }
-
 
 }

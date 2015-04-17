@@ -2,9 +2,7 @@
 
 use App\Http\Requests;
 
-use App\Repositories\Interfaces\ProfileRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface as User;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateProfileRequest;
 use Illuminate\Http\RedirectResponse;
 
@@ -39,7 +37,8 @@ class ProfilesController extends Controller
 
     public function update($username, CreateProfileRequest $request)
     {
-        $this->user->updateProfile($request->only('street', 'city', 'bio', 'github_username'));
+
+        $this->user->updateProfile($username, $request->only('street', 'city', 'bio', 'github_username', 'twitter_username'));
 
         return new RedirectResponse(url('/profiles/' . $username));
     }

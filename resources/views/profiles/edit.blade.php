@@ -27,6 +27,9 @@
                     {!! Form::text('github_username', null, ['placeholder' => 'Github Username']) !!}
                 </div>
                 <div class="12u$">
+                    {!! Form::text('twitter_username', null, ['placeholder' => 'Twitter Handle']) !!}
+                </div>
+                <div class="12u$">
                     {!! Form::text('street', null, ['placeholder' => 'Street']) !!}
                 </div>
                 <div class="12u$">

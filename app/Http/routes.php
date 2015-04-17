@@ -11,8 +11,6 @@
 |
 */
 
-
-
 # main pages
 Route::get('/', 'HomeController@index');
 Route::get('home', ['as' => 'home', 'uses' => 'HomeController@index']);
@@ -20,22 +18,22 @@ Route::get('about', ['as' => 'about', 'uses' => 'HomeController@about']);
 Route::get('contact', ['as' => 'contact', 'uses' => 'HomeController@contact']);
 Route::get('blog', ['as' => 'blog', 'uses' => 'HomeController@blog']);
 
-# profile
-//Route::resource('profiles', 'ProfilesController', ['only' => ['show', 'edit', 'update']]);
-Route::group(['prefix' => 'profiles'], function()
-{
-    Route::get('/{username}', ['uses' => 'ProfilesController@show', 'as' => 'profile.show']);
-    Route::get('/{username}/edit', ['uses' => 'ProfilesController@edit', 'as' => 'profile.edit']);
-    Route::put('/{username}', ['uses' => 'ProfilesController@update', 'as' => 'profile.update']);
-});
+Route::resource('posts', 'PostsController');
 
-# login
-Route::post('login', ['as' => 'sessions.store', 'uses' => 'SessionsController@store']);
+Route::get('forum', 'PostsController@index');
 
-Route::group(['prefix' => 'admin'], function()
+Route::get('posts/{post_id}/comments/', 'CommentController@index');
+Route::post('posts/{post_id}/comments/', 'CommentController@store');
+
+# restrict from unauthenticated users
+Route::group(['middleware' => 'auth'], function()
 {
-    Route::get('login', ['uses' => 'AdminController@create']); // copy login form from session
-    Route::post('login', ['as' => 'admin.store', 'uses' => 'AdminController@store']);
+    # login
+    Route::get('logout', [
+        'as' => 'sessions.destroy',
+        'uses' => 'SessionsController@destroy',
+        'middleware' => 'auth'
+    ]);
 });
 
 # restrict from authenticated users
@@ -49,23 +47,37 @@ Route::group(['middleware' => 'guest'], function()
     Route::post('register', ['as' => 'registration.store', 'uses' => 'RegistrationController@store']);
 });
 
-# restrict from unauthenticated users
-Route::group(['middleware' => 'auth'], function()
+# profile
+//Route::resource('profiles', 'ProfilesController', ['only' => ['show', 'edit', 'update']]);
+Route::group(['prefix' => 'profiles'], function()
 {
-    # login
-    Route::get('logout', [
-        'as' => 'sessions.destroy',
-        'uses' => 'SessionsController@destroy',
-        'middleware' => 'auth'
-    ]);
+    Route::get('/{username}', ['uses' => 'ProfilesController@show', 'as' => 'profile.show']);
+    Route::get('/{username}/edit', ['uses' => 'ProfilesController@edit', 'as' => 'profile.edit']);
+    Route::put('/{username}', ['uses' => 'ProfilesController@update', 'as' => 'profile.update']);
 });
 
-Route::resource('posts', 'PostsController');
 
-Route::get('forum', 'PostsController@index');
+Route::resource('messages/{username}', 'MessagesController', []); # Handles pm
 
-Route::get('posts/{post_id}/comments/', 'CommentController@index');
-Route::post('posts/{post_id}/comments/', 'CommentController@store');
+Route::get('/test', function()
+{
+    dd(Role::whereName('member')->get()->first()->name);
+//    $requst = \Illuminate\Http\Request::create('/', 'GET', ['first_name' => 'Shane', 'last_name' =>, ])
+//    $bus->dispatch(); # dispatch commands this easily :D
+});
+
+# login
+Route::post('login', ['as' => 'sessions.store', 'uses' => 'SessionsController@store']);
+
+Route::group(['prefix' => 'admin'], function()
+{
+    Route::get('login', ['uses' => 'AdminController@create']); // copy login form from session
+    Route::post('login', ['as' => 'admin.store', 'uses' => 'AdminController@store']);
+});
+
+
+
+
 
 //
 //Route::controllers([
@@ -75,11 +87,3 @@ Route::post('posts/{post_id}/comments/', 'CommentController@store');
 
 # php artisan make:event UserWasSignedIn
 # php artisan handler:event UpdateUserLogin --event="UserWasSigned"
-
-
-
-Route::get('/test', function(Dispatcher $bus)
-{
-//    $requst = \Illuminate\Http\Request::create('/', 'GET', ['first_name' => 'Shane', 'last_name' =>, ])
-//    $bus->dispatch(); # dispatch commands this easily :D
-});

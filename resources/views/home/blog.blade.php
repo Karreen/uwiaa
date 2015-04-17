@@ -2,37 +2,18 @@
 
 @section('content')
 
-    <div id="main" class="wrapper style1">
-        <div class="container">
-            <header class="major">
-                <h2>Title</h2>
-
-                <p>Subtitle</p>
-            </header>
-
-            <div class="row uniform 50%">
-                <div class="12u$">
-                    <p>content</p>
-                </div>
-            </div>
-
-            <header class="major">
-                <h2>Comments</h2>
-
-                <p>The community</p>
-            </header>
-
-            <div class="row uniform 50%">
-                <div class="12u$">
-                    @include('posts.partials._comments')
-                </div>
-            </div>
+    @foreach(array_chunk($posts->getCollection()->all(), 3) as $row)
+        <div class="row">
+            @foreach($row as $post)
+                <article class="col-md-4">
+                    <h2>{{ $post->title }}</h2>
+                    <img src="{{ $post->image }}" alt="{{ $post->title }}">
+                    <div class="body">
+                        {{ $post->content }}
+                    </div>
+                </article>
+            @endforeach
         </div>
-    </div>
-
-@stop
-
-@section('scripts')
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    {!! HTML::script('js/CommentCtrl.js')  !!}
+    @endforeach
+    {{ $posts->appends(Request::except('page'))->links() }}
 @stop

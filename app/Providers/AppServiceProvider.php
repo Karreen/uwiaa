@@ -54,6 +54,11 @@ class AppServiceProvider extends ServiceProvider {
             'App\Repositories\Interfaces\CommentRepositoryInterface',
             'App\Repositories\CommentRepository'
         );
+
+        $this->app->bind(
+            'App\Repositories\Interfaces\MessageRepositoryInterface',
+            'App\Repositories\MessageRepository'
+        );
 	}
 
 }

@@ -16,6 +16,7 @@ class CreateRolesTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('name')->unique();
+            $table->string('description')->nullable();
             //$table->enum('name', ['member', 'student', 'alumni', 'admin', 'owner']);
 			$table->timestamps();
 		});

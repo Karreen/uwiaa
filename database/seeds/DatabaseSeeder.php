@@ -26,8 +26,15 @@ class DatabaseSeeder extends Seeder {
         $this->call('database\seeds\PostsTableSeeder');
         $this->command->info('Posts table seeded!');
 
+//        $this->call('database\seeds\AlertTableSeeder');
+        $this->command->info('Alerts table seeded!');
+
+//        $this->call('database\seeds\BlogTableSeeder'); # articles
+//        $this->command->info('Blog table seeded!');
+//
 //        $this->call('database\seeds\ProfileTableSeeder');
-//        $this->call('database\seeds\RoleUserTableSeeder');
+//        $this->command->info('Profile Table seeded!');
+
 //        $this->call('database\seeds\ProfileUserTableSeeder');
 	}
 

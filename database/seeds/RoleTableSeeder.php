@@ -1,8 +1,8 @@
 <?php namespace database\seeds;
 
+use App\Models\Alert;
 use App\Models\Role;
 use App\Models\User;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -11,17 +11,7 @@ class RoleTableSeeder extends Seeder{
     public function run()
     {
         DB::table('roles')->delete();
-
-        $allRoles = [
-            'member', 'alumni', 'student', 'mentor', 'admin'
-        ];
-
-//        foreach ($allRoles as $newRole)
-//        {
-//            Role::create(([
-//                'name' => $newRole,
-//            ]));
-//        }
+        DB::table('alerts')->delete();
 
         Role::create([
             'name' => 'member',
@@ -43,7 +33,28 @@ class RoleTableSeeder extends Seeder{
             'name' => 'admin',
         ]);
 
+        Alert::create([
+            'name' => 'urgent'
+        ]);
+
+        Alert::create([
+            'name' => 'important'
+        ]);
+
+        Alert::create([
+            'name' => 'normal'
+        ]);
+
         $users = User::all();
+        
+        $member = Role::whereName('member')->get()->first();
+        $alumni = Role::whereName('alumni')->get()->first();
+
+        foreach($users as $user)
+        {
+            $user->assignRole($member);
+            $user->assignRole($alumni);
+        }
 
 
     }

@@ -35,7 +35,7 @@ class PostsTableSeeder extends Seeder
         foreach (range(1, 30) as $index) {
             $post = new Post([
                 'title'     => $faker->sentence,
-                'content'      => $faker->paragraph(2),
+                'content'      => $faker->paragraph(10),
                 'image'     => $faker->imageUrl(300, 200),
             ]);
 

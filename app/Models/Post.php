@@ -4,9 +4,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model {
 
+    protected $table = 'posts';
+
 	protected $fillable = [
         'user_id', 'title', 'content',
-        'image', 'user_id'
+        'image', 'user_id', 'summary'
     ];
 
     public function tags()

@@ -26,7 +26,7 @@ interface UserRepositoryInterface {
 //
 //    public function getProfile($username);
 //
-//    public function updateProfile($attributes);
+    public function updateProfile($username, $attributes);
 //
     /*
      * Role relation queries

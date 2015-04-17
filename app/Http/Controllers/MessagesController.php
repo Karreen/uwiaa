@@ -1,40 +1,61 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateMessageRequest;
+use App\Repositories\Interfaces\MessageRepositoryInterface as Message;
+use Illuminate\Auth\Guard;
 
 class MessagesController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
+    protected $message;
+
+    function __construct(Message $message)
+    {
+//        $this->middleware('auth.current');
+        $this->message = $message;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param $request
+     * @param $username
+     * @param Guard $auth
+     * @return \Illuminate\View\View
+     */
+    public function index($request, $username, Guard $auth)
 	{
-		//
+        return view('messages.index')->withMessages($auth->user()->receiver());
 	}
 
 	/**
 	 * Show the form for creating a new resource.
 	 *
+     * @param $request
 	 * @return Response
 	 */
-	public function create()
+	public function create($request)
 	{
-		//
+        return view('messages.create');
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
+     * @param $username
+     * @param $request
 	 * @return Response
 	 */
-	public function store()
+	public function store($username, CreateMessageRequest $request)
 	{
-		//
+        $receiver_username = $request->only(['username']);
+        $attributes = $request->only(['title', 'content']);
+
+        $message = $this->message->create($receiver_username, $attributes);
+
+        dd($message);
+
+        return redirect()->route('messages.index');
 	}
 
 	/**
@@ -55,7 +76,7 @@ class MessagesController extends Controller {
 	 * @return Response
 	 */
 	public function edit($id)
-	{
+    {
 		//
 	}
 
@@ -78,7 +99,7 @@ class MessagesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		return $this->message->delete($id);
 	}
 
 }

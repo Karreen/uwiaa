@@ -9,9 +9,15 @@
         <div class="container">
 
             <header class="major">
-                <h2>Profile</h2>
 
-                <p>Ipsum dolor feugiat aliquam tempus sed magna lorem consequat accumsan</p>
+                <h2>{{ $user->username }}</h2>
+
+                @if ($user->profile)
+                    <p>{{ $user->profile->street }}, {{ $user->profile->city }}</p>
+                @else
+                    <h2>No Profile Available</h2>
+                @endif
+
             </header>
 
             @foreach ($errors->all() as $error)
@@ -20,43 +26,27 @@
 
 
             <div class="row">
-                @if ($user->profile == null)
-                    <div class="4u  6u(xsmall)"><span class="image fit"><img src="images/pic02.jpg" alt=""/></span></div>
-                @endif
-
-                <div class="4u  6u(medium)">
                 @if ($user->profile)
+                    <div class="4u  6u(medium)">
 
-                        <h1>
-                            {{ $user->username  }}
-                            @if ($user->profile)
-
-                                |<small>{{ $user->profile->street }}, {{ $user->profile->city }}</small>
-                            @endif
-                        </h1>
-                    </div>
+                    {{ $user->profile->bio }}
 
                     <ul>
                         <li>{!! link_to('http://github.com/' . $user->profile->github_username, 'View my work on Github') !!}</li>
+                        <li>{!! link_to('http://twitter.com/' . $user->profile->twitter_username, 'Follow me on twitter') !!}</li>
                     </ul>
 
-                @else
-                    <small>No Details</small>
-                @endif
+                    @else
+                        <small>No Details</small>
+                    @endif
 
-                @if ($user->isCurrent())
-                    {!! link_to_route('profile.edit', 'Edit', $user->username) !!}
-                @endif
+                    @if ($user->isCurrent())
+                        {!! link_to_route('profile.edit', 'Edit', $user->username) !!}
+                    @endif
+
+                    </div>
                 </div>
             </div>
-
-            <div>
-                @if ($user->profile)
-                    {{ $user->profile->bio }}
-                @else
-                    <small>No Details</small>
-                @endif
-            </div>
         </div>
-    </div>
+
 @endsection

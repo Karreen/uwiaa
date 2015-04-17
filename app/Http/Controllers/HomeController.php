@@ -1,5 +1,8 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Post;
+use Illuminate\Support\Facades\View;
+
 class HomeController extends Controller {
 
 	/*
@@ -46,6 +49,11 @@ class HomeController extends Controller {
 
     public function blog()
     {
-        return view('home.blog');
+        $posts = Post::paginate(6);
+
+        return view('home.blog')->withPosts($posts);
+//        return View::make('home.blog', [
+//            'posts' => Post::paginate(6)
+//        ]);
     }
 }

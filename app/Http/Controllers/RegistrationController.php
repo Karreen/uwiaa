@@ -3,6 +3,7 @@
 use App\Http\Requests;
 
 use App\Http\Requests\CreateRegistrationRequest;
+use App\Models\Role;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Redirect;
 
@@ -33,13 +34,12 @@ class RegistrationController extends Controller {
 	{
 
         $user = $this->user->create($request->only('username', 'email', 'password'));
-
-//        if ($user)
-//        {
-//            $user->addRole('member');
-//        }
-//        $this->user->assignRole('alumni');
-//        $this->user->save();
+//
+//        $member = Role::whereName('member')->first()->get();
+//        $alumni = Role::whereName('alumni')->first()->get();
+//
+//        $user->assignRole($member);
+//        $user->assignRole($alumni);
 
         return Redirect::home();
 	}
@@ -53,6 +53,6 @@ class RegistrationController extends Controller {
         if (! $confirmationCode)
             return 'nope';
 
-        $user = User::whereConfirmationCode($confirmationCode)-first();
+        $user = User::whereConfirmationCode($confirmationCode)->first();
     }
 }
