@@ -12,8 +12,10 @@
         <div class="content">
             <header>
                 <h2>UWI Alumni Association</h2>
-                <p>And there are no hoverboards or flying cars.<br />
-                    Just apps. Lots of mother flipping apps.</p>
+                <p>The University of the West Indies  Computing Alumni Association is open to all graduates <br />
+                who pursued a major or minor at the undergraduate or postgraduate level in Computing <br />
+                (Computer Science, Information Technology, Software Engineering, Computer Engineering, <br />
+                Management Information Systems) at University of the West Indies, Mona.</p>
             </header>
             <span class="image"><img src="images/pic01.jpg" alt="" /></span>
         </div>
